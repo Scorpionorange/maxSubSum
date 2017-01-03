@@ -3,7 +3,19 @@
  */
 public class MaxSubSum {
     public static void main(String[] args){
-        System.out.println("Testing");
+        int[] a = new int[1000];
+        for(int i = 0; i < a.length; i++){
+            a[i] = (int)(Math.random() * 100);
+        }
+        int output1 = maxSubSum1(a);
+        int output2 = maxSubSum2(a);
+        int output3 = maxSubSum3(a);
+        int output4 = maxSubSum4(a);
+
+        System.out.println("output1 = " + output1);
+        System.out.println("output2 = " + output2);
+        System.out.println("output3 = " + output3);
+        System.out.println("output4 = " + output4);
     }
 
     /**
@@ -37,8 +49,8 @@ public class MaxSubSum {
         for(int i = 0; i < a.length; i++){
             int thisSum = 0;
 
-            for(int j = i; i < a.length; j++){
-                thisSum = thisSum + a[j];
+            for(int j = i; j < a.length; j++){
+                thisSum += a[j];
 
                 if(thisSum > maxSum){
                     maxSum = thisSum;
@@ -92,5 +104,24 @@ public class MaxSubSum {
      */
     public static int maxSubSum3(int[] a){
         return maxSumRec(a, 0, a.length - 1);
+    }
+
+    /**
+     * Liner-time maximum contiguous subsequence sum algorithm.
+     */
+    public static int maxSubSum4(int[] a){
+        int maxSum = 0, thisSum = 0;
+
+        for(int i = 0; i < a.length; i++){
+            thisSum += a[i];
+
+            if(thisSum > maxSum){
+                maxSum = thisSum;
+            }
+            else if (thisSum < 0){
+                thisSum = 0;
+            }
+        }
+        return maxSum;
     }
 }
